@@ -13,7 +13,8 @@ const pool =
     connectionString: env.DATABASE_URL,
     max: 10,
     idleTimeoutMillis: 30_000,
-    connectionTimeoutMillis: 5_000,
+    // Serverless Postgres (e.g. Neon) can take a few seconds to wake from idle.
+    connectionTimeoutMillis: 10_000,
   });
 
 if (env.NODE_ENV !== "production") globalForDb.pgPool = pool;

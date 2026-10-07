@@ -85,7 +85,7 @@ domain               src/domain/*           pure functions (dates, habit stats, 
 1. Provision PostgreSQL and set environment variables:
    - `DATABASE_URL` — connection string (use TLS, e.g. `?sslmode=require`, for managed databases)
    - `BETTER_AUTH_SECRET` — 32+ random bytes (`openssl rand -base64 32`); rotating it signs everyone out
-   - `BETTER_AUTH_URL` — the public origin, e.g. `https://almanac.example.com` (used for cookies and CSRF origin checks)
+   - `BETTER_AUTH_URL` — the public origin, e.g. `https://almanac.example.com` (used for cookies and CSRF origin checks). Optional on Vercel: detected from `VERCEL_PROJECT_PRODUCTION_URL` (production) or `VERCEL_URL` (previews); set it explicitly when you add a custom domain.
 2. Run `pnpm db:migrate` **before** starting the new version (migrations are additive and tracked in `__drizzle_migrations`).
 3. `pnpm build && pnpm start` (or deploy to any Node host). The app validates env vars at startup and fails fast with the names of missing ones.
 4. Serve over HTTPS only.
